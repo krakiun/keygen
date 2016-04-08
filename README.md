@@ -1,8 +1,12 @@
 # keygen
 
-##PythonAnywhere credentials:
-user adwizard
-pwd password123
+##Credentials for KeygenApp:
 
-##Script to populate database with keys (in keygen/keygen/management/commands)
+*user: adwizard
+
+*pwd: password123
+
+##Script to populate database with keys (in adwizard/keygen/management/commands)
 python3 manage.py populate_db
+
+Key-generating manager at adwizard/keygen/models.py
