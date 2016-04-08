@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'j3!91jo=*^y1ayqp^97a)eb%d#72#1v(p+$6e=r%io#%aqfw^v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', 'maksimryndin.pythonanywhere.com']
 
