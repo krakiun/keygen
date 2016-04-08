@@ -2,5 +2,7 @@
 __pycache__
 env
 db.sqlite3
-/static
+/migrations
 .DS_Store
+*.py~
+*.css~

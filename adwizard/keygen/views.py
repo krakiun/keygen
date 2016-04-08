@@ -1,7 +1,9 @@
+import os.path
 from django.http import Http404
 from django.utils import timezone
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -23,7 +25,7 @@ def api_root(request, format=None):
 class Status(APIView):
 
     def get(self, request, format=None):
-        total_free = Key.objects.filter(status=1).count()
+        total_free = Key.objects.filter(status='status_free').count()
         return Response(total_free)
 
 
@@ -41,10 +43,10 @@ class KeyView(APIView):
 
     def put(self, request, code, format=None):
         key = self.get_object(code)
-        if key.status == 3 or (not key.issued):
+        if key.status == 'status_expired' or (not key.issued):
             return Response(_('Key has been already killed or not yet issued to be killed'), status=status.HTTP_400_BAD_REQUEST)
         else:
-            key.status = 3
+            key.status = 'status_expired'
             key.expired = timezone.now()
             key.save()
             serialized_key = KeySerializer(key, data=request.data)
@@ -57,10 +59,10 @@ class KeyView(APIView):
 
 class GetKey(APIView):
     def get(self, request, format=None):
-        free_keys = Key.objects.filter(status=1)
+        free_keys = Key.objects.filter(status='status_free')
         if free_keys:
             key = free_keys[0]
-            key.status = 2
+            key.status = 'status_issued'
             key.issued = timezone.now()
             key.save()
             serialized_key = KeySerializer(key)
@@ -75,5 +77,6 @@ def index(request):
     example_status = reverse('status')
     context = {'example_key': request.build_absolute_uri(example_key),
                 'example_get_key': request.build_absolute_uri(example_get_key),
-                'example_status': request.build_absolute_uri(example_status),}
+                'example_status': request.build_absolute_uri(example_status),
+                'doc_link': settings.DOC_LINK}
     return render(request, 'home.html', context)

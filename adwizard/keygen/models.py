@@ -19,19 +19,15 @@ class KeyManager(models.Manager):
 
 class Key(models.Model):
 
-    STATUS_FREE = 1
-    STATUS_ISSUED = 2
-    STATUS_EXPIRED = 3
-
     STATUS_CHOICES = (
-        (STATUS_FREE, _('Free to use')),
-        (STATUS_ISSUED, _('Issued')),
-        (STATUS_EXPIRED, _('Expired')),
+        ('status_free', _('Free to use')),
+        ('status_issued', _('Issued')),
+        ('status_expired', _('Expired')),
     )
 
     code = models.CharField(max_length=4)
     created = models.DateTimeField(auto_now_add=True)
-    status = models.SmallIntegerField(choices=STATUS_CHOICES, default=STATUS_FREE)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='status_free')
     issued = models.DateTimeField(null=True)
     expired = models.DateTimeField(null=True)
 

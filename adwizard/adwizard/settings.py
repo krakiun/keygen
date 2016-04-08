@@ -122,3 +122,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=(os.path.join(BASE_DIR, 'static'),)
+
+
+#Custom_settings
+
+#Set number of generated keys and token size (in symbols)
+#for keygen/management/commands/populate_db
+KEYS_QTY = 50
+TOKEN_SIZE = 4
+
+#Documentation link
+DOC_LINK = 'https://github.com/maksimryndin/keygen/blob/master/README.md'

@@ -5,8 +5,9 @@ html,body {
 
 body {
     font: 100% arial, sans-serif;
-    text-align: center;
+    text-align: left;
     background-color: #F0F6F6;
+    padding-left: 20px;
 }
 
 h1 {
@@ -19,6 +20,5 @@ p {
 
 a {
     padding:5px;
-    text-decoration:none;
     color:#000000;
 }
