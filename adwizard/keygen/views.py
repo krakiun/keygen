@@ -1,5 +1,6 @@
 from django.http import Http404
 from django.utils import timezone
+from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
@@ -68,5 +69,11 @@ class GetKey(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-
-
+def index(request):
+    example_key = reverse('key_view', kwargs={'code': 'aBc1'})
+    example_get_key = reverse('get_key')
+    example_status = reverse('status')
+    context = {'example_key': request.build_absolute_uri(example_key),
+                'example_get_key': request.build_absolute_uri(example_get_key),
+                'example_status': request.build_absolute_uri(example_status),}
+    return render(request, 'home.html', context)

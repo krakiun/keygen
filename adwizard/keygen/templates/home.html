@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="utf-8">
+    <title>Random Key Generator</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <h1>Random Key Generator</h1>
+    <p>This server can be used to get random keys with 3 states: free, issued and expired.</p>
+    <h2>API</h2>
+    <ul>
+        <li>
+            Current quantity of available free keys:
+            <p>GET  {{ example_status }}</p>
+        </li>
+        <li>
+            Current status of key (free/issued/expired):
+            <p>GET  {{ example_key }}</p>
+        </li>
+        <li>
+            Get free key:
+            <p>GET  {{ example_get_key }}</p>
+        </li>
+        <li>
+            Kill issued key:
+            <p>PUT  {{ example_key }}</p>
+        </li>
+    </ul>
+</body>
+</html>
