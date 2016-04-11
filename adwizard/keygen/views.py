@@ -25,6 +25,7 @@ def api_root(request, format=None):
 class Status(APIView):
 
     def get(self, request, format=None):
+        """Current quantity of available free keys"""
         total_free = Key.objects.filter(status='status_free').count()
         return Response(total_free)
 
@@ -37,11 +38,13 @@ class KeyView(APIView):
             raise Http404
 
     def get(self, request, code, format=None):
+        """Current status of key (free/issued/expired)"""
         key = self.get_object(code)
         serialized_key = KeySerializer(key)
         return Response(serialized_key.data['status'])
 
     def put(self, request, code, format=None):
+        """Kill issued key"""
         key = self.get_object(code)
         if key.status == 'status_expired' or (not key.issued):
             return Response(_('Key has been already killed or not yet issued to be killed'), status=status.HTTP_400_BAD_REQUEST)
@@ -59,6 +62,7 @@ class KeyView(APIView):
 
 class GetKey(APIView):
     def get(self, request, format=None):
+        """ Get free key"""
         free_keys = Key.objects.filter(status='status_free')
         if free_keys:
             key = free_keys[0]

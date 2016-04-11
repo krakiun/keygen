@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sessions',
     'rest_framework',
+    'rest_framework_swagger',
     'keygen',
 ]
 
@@ -42,6 +43,10 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',)
 }
 
+
+SWAGGER_SETTINGS = {
+    'api_path': '/',
+}
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
