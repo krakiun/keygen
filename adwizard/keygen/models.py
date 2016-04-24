@@ -4,15 +4,17 @@ import string
 import random
 
 
-def key_generator(size=4, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
+def key_generator(size=4,
+                  chars=string.ascii_uppercase +
+                  string.ascii_lowercase + string.digits):
     return ''.join(random.SystemRandom().choice(chars) for _ in range(size))
 
 
 class KeyManager(models.Manager):
     def create_code(self, size):
-        self.code=key_generator(size=size)
+        self.code = key_generator(size=size)
         while Key.objects.filter(code=self.code).exists():
-            self.code=key_generator(size=size)
+            self.code = key_generator(size=size)
         key = self.create(code=self.code)
         return key
 
@@ -27,7 +29,8 @@ class Key(models.Model):
 
     code = models.CharField(max_length=4)
     created = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='status_free')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                              default='status_free')
     issued = models.DateTimeField(null=True)
     expired = models.DateTimeField(null=True)
 
